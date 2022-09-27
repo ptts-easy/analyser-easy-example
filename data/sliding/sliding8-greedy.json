@@ -1,0 +1,107 @@
+root:{
+    setting:{reduce:true, regu_step:500, act_setp:1000, main:"3_3", init:"some", sleep:100},
+    position:[[0, 0], [1, 0], [2, 0], [0, 1], [1, 1], [2, 1], [0, 2], [1, 2], [2, 2]],
+    logics:{
+        3_3:{
+            situations:{
+                some:[ 8,  3,  6,  0,  2,  7,  4,  1,  5],
+                any:{$func:"shuffle", $data:[ 0, 1, 2, 3, 4, 5, 6, 7, 8]},
+                success:[1, 2, 3, 4, 5, 6, 7, 8, 0],
+                failed:[1, 2, 3, 4, 5, 6, 8, 7, 0]
+            },
+            conditions:{
+                c_1:  [ 1,  @,  @,  @,  @,  @,  @,  @,  @],
+                c_2:  [ 1,  2,  @,  @,  @,  @,  @,  @,  @],
+                c_20: [ 1,  2,  @,  @,  3,  @,  @,  @,  @],
+                c_21: [ 1,  2,  @,  0,  3,  @,  @,  @,  @],
+                c_22: [ 2,  3,  @,  1,  @,  @,  @,  @,  @],
+                c_23: [ 2,  3,  0,  1,  @,  @,  @,  @,  @],
+                c_3:  [ 1,  2,  3,  @,  @,  @,  @,  @,  @],
+                c_last:[ 1,  2,  3,  4,  5,  6,  @,  @,  0],
+                c_ok: [ 1,  2,  3,  4,  5,  6,  7,  8,  0],
+                c_no: [ 1,  2,  3,  4,  5,  6,  8,  7,  0],
+                s_21: [ @,  @,  #,  @,  @,  #,  #,  #,  #],
+                s_23: [ @,  @,  @,  @,  #,  #,  #,  #,  #],
+                links:[
+                    [
+                        [ 0, $a,  @, $b,  @,  @,  @,  @,  @],
+                        [$a,  0,  @, $b,  @,  @,  @,  @,  @],
+                        [$b, $a,  @,  0,  @,  @,  @,  @,  @]
+                    ],
+                    [
+                        [$a,  0, $b,  @, $c,  @,  @,  @,  @],
+                        [ 0, $a, $b,  @, $c,  @,  @,  @,  @],
+                        [$a, $b,  0,  @, $c,  @,  @,  @,  @],
+                        [$a, $c, $b,  @,  0,  @,  @,  @,  @]
+                    ],
+                    [
+                        [ @, $a,  0,  @,  @, $b,  @,  @,  @],
+                        [ @,  0, $a,  @,  @, $b,  @,  @,  @],
+                        [ @, $a, $b,  @,  @,  0,  @,  @,  @]
+                    ],
+                    [
+                        [$b,  @,  @,  0, $a,  @, $c,  @,  @],
+                        [$b,  @,  @, $a,  0,  @, $c,  @,  @],
+                        [ 0,  @,  @, $b, $a,  @, $c,  @,  @],
+                        [$b,  @,  @, $c, $a,  @,  0,  @,  @]
+                    ],
+                    [
+                        [ @, $c,  @, $a,  0, $b,  @, $d,  @],
+                        [ @, $c,  @,  0, $a, $b,  @, $d,  @],
+                        [ @, $c,  @, $a, $b,  0,  @, $d,  @],
+                        [ @,  0,  @, $a, $c, $b,  @, $d,  @],
+                        [ @, $c,  @, $a, $d, $b,  @,  0,  @]
+                    ],
+                    [
+                        [ @,  @, $b,  @, $a,  0,  @,  @, $c],
+                        [ @,  @, $b,  @,  0, $a,  @,  @, $c],
+                        [ @,  @,  0,  @, $a, $b,  @,  @, $c],
+                        [ @,  @, $b,  @, $a, $c,  @,  @,  0]
+                    ],
+                    [
+                        [ @,  @,  @, $b,  @,  @,  0, $a,  @],
+                        [ @,  @,  @, $b,  @,  @, $a,  0,  @],
+                        [ @,  @,  @,  0,  @,  @, $b, $a,  @]
+                    ],
+                    [
+                        [ @,  @,  @,  @, $c,  @, $a,  0, $b],
+                        [ @,  @,  @,  @, $c,  @,  0, $a, $b],
+                        [ @,  @,  @,  @, $c,  @, $a, $b,  0],
+                        [ @,  @,  @,  @,  0,  @, $a, $c, $b]
+                    ],
+                    [
+                        [ @,  @,  @,  @,  @, $b,  @, $a,  0],
+                        [ @,  @,  @,  @,  @, $b,  @,  0, $a],
+                        [ @,  @,  @,  @,  @,  0,  @, $a, $b]
+                    ]
+                ]
+            },
+            actions:{
+                a_ok:{$func:exit, $ret:1},
+                a_no:{$func:exit, $ret:0},
+                a_last_1:{$func:greedy, $end:"c_last", $target:"c_ok", $link:"links", $weight:"weighted-manhattan", $row:3, $col:3},
+                a_bfs_1:{$func:greedy, $end:"c_1", $target:"c_1", $link:"links", $weight:"weighted-manhattan", $row:3, $col:3},
+                a_bfs_2:{$func:greedy, $end:"c_2", $target:"c_2", $link:"links", $static:"c_1", $weight:"weighted-manhattan", $row:3, $col:3},
+                a_bfs_20:{$func:greedy, $end:"c_20", $target:"c_20", $link:"links", $static:"c_2", $weight:"weighted-manhattan", $row:3, $col:3},
+                a_bfs_21:{$func:greedy, $end:"c_21", $target:"c_21", $link:"links", $static:"c_20", $weight:"weighted-manhattan", $row:3, $col:3},
+                a_bfs_22:{$func:greedy, $end:"c_22", $target:"c_22", $link:"links", $static:"s_21", $weight:"weighted-manhattan", $row:3, $col:3},
+                a_bfs_23:{$func:greedy, $end:"c_23", $target:"c_23", $link:"links", $static:"c_22", $weight:"weighted-manhattan", $row:3, $col:3},
+                a_bfs_3:{$func:greedy, $end:"c_3", $target:"c_3", $link:"links", $static:"s_23", $weight:"weighted-manhattan", $row:3, $col:3},
+                a_last:{$func:greedy, $end:"c_last", $target:"c_ok", $link:"links", $static:"c_3", $weight:"weighted-manhattan", $row:3, $col:3}
+            },
+            inferences:[
+                r_ok:{$cnd:"c_ok", $act:"a_ok"},
+                r_no:{$cnd:"c_no", $act:"a_no"},
+//                r_a:{$cnd:, $act:"a_last_1"},
+                r_3:{$cnd:"c_3", $act:"a_last"},
+                r_23:{$cnd:"c_23", $act:"a_bfs_3"},
+                r_22:{$cnd:"c_22", $act:"a_bfs_23"},
+                r_21:{$cnd:"c_21", $act:"a_bfs_22"},
+                r_20:{$cnd:"c_20", $act:"a_bfs_21"},
+                r_2:{$cnd:"c_2", $act:"a_bfs_20"},
+                r_1:{$cnd:"c_1", $act:"a_bfs_2"},
+                r_0:{$act:"a_bfs_1"}
+            ]
+        }
+    }
+}
