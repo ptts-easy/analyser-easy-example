@@ -1,24 +1,30 @@
-# analyser-easy-example
+<H1 align="center">analyser-easy-example</H1>
 
-##PuzzleSolver
+## PuzzleSolver
 
   This is a rule-based sliding-16 puzzle solving program.
 
-##PathExplorer
+  <img src="/images/PuzzleSolver.png" alt="PuzzleSolver Image"/>
+
+## PathExplorer
 
   This is a program that takes the shortest path to the destination by turning around the obstacle.
 
-##ProcessAnalyser
+  <img src="/images/PuzzleSolver.png" alt="PathExplorer Image"/>
+
+## ProcessAnalyser
 
   This is a program for analyzing Windows applications.
 
-##BitcoinAnalyser
+## BitcoinAnalyser
 
-  This is a program for showing the concepts and functions of Bitcoin.
+  This is a program to show the concepts and functions of Bitcoin.
 
-##CipherAnalyser
+  <img src="/images/BitcoinAnalyser.png" alt="BitcoinAnalyser Image"/>
 
-  This is a program for comparing and analyzing the performance of various encryption modules.
+## CipherAnalyser
+
+  This is a program to compare and to analyze the performance of various encryption modules.
 
 ## contact
 
