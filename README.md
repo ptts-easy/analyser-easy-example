@@ -10,7 +10,7 @@
 
   This is a program that takes the shortest path to the destination by turning around the obstacle.
 
-  <img src="/images/PuzzleSolver.png" alt="PathExplorer Image"/>
+  <img src="/images/PathExplorer.png" alt="PathExplorer Image"/>
 
 ## ProcessAnalyser
 
