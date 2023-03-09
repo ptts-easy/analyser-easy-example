@@ -26,6 +26,7 @@
 
   This is a program to compare and to analyze the performance of various encryption modules.
 
-## contact
+## references
 
-  If you need to contact me, you can do it at the email faco0909@outlook.com
+  -
+  
